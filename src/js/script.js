@@ -79,7 +79,7 @@ $(document).ready(function(){
     formValidate('#consultation-modal');
     formValidate('#consultation-main');
 
-
+    $('input[name = phone]').mask("+7 (999) 999-99-99");
 });
 
     
