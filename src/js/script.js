@@ -44,6 +44,8 @@ $(document).ready(function(){
     $('[data-modal="buy"]').each(function(i){
         $(this).on('click', function(){
             $('#order .modal__subtitle').text($('.catalog-item__title').eq(i).text());
+            $('#consultation, #order').fadeOut();
+            $('#thanks').fadeIn('slow');
             $('.overlay, #order').fadeIn('slow')
             })
       });
@@ -78,8 +80,35 @@ $(document).ready(function(){
     formValidate('#confirm-form');
     formValidate('#consultation-modal');
     formValidate('#consultation-main');
+    $('input[name = phone]').mask("+38(099)-999-99-99");
 
-    $('input[name = phone]').mask("+7 (999) 999-99-99");
+    //Mailer
+    $('form').submit(function(e){
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "src/mailer/sendToAdmin.php",
+            data: $(this).serialize()
+        }).done(function(){
+            $(this).find("input").val("");
+            $('#consultation, #order').fadeOut();
+            $('#thanks').fadeIn('slow');
+            $('form').trigger('reset');
+            
+        });
+        return false;
+    });
+
+    $('form').submit(function(e){
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "src/mailer/sendToUser.php",
+            data: $(this).serialize()
+        })
+        return false;
+    });
+    
 });
 
     
