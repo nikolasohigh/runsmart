@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    //Slider
     $('.carousel_slider').slick({
         slidesToShow: 1,
         slidesToScroll: 1,
@@ -16,14 +17,13 @@ $(document).ready(function(){
         }]
     });
 
+    //Tabs
     $('ul.catalog__tabs').on('click', 'li:not(.catalog__tab_active)', function() {
         $(this)
           .addClass('catalog__tab_active').siblings().removeClass('catalog__tab_active')
           .closest('div.container').find('div.catalog__content').removeClass('catalog__content_active').eq($(this).index()).addClass('catalog__content_active');
       });
-
-
-      function toggleTab (item) {
+    function toggleTab (item) {
         $(item).each(function(i) {
             $(this).on('click', function(e){
                 e.preventDefault();
@@ -36,4 +36,50 @@ $(document).ready(function(){
     toggleTab ('.catalog-item__link');
     toggleTab ('.catalog-item__back');
 
+    //Modal
+    $('[data-modal="consultation"]').on('click', function(){
+        $('.overlay, #consultation').fadeIn('slow')
+        });
+
+    $('[data-modal="buy"]').each(function(i){
+        $(this).on('click', function(){
+            $('#order .modal__subtitle').text($('.catalog-item__title').eq(i).text());
+            $('.overlay, #order').fadeIn('slow')
+            })
+      });
+      
+    $('.modal__close').on('click', function(){
+        $('.overlay, #consultation, #order, #thanks').fadeOut('slow')
+    });
+
+    //Validation
+    function formValidate(form) {
+        $(form).validate({
+            rules: {
+                name: "required",
+                phone: "required",
+                email: {
+                    required: true,
+                    email: true
+                }
+            },
+    
+            messages: {
+                name: "*Пожалуйста, введите свое имя",
+                phone: "*Введите корректный номер телефона",
+                email: {
+                    required: "*Пожалуйста, введите свой почтовый адрес",
+                    email: "*Пожалуйста, введите корректный почтовый адрес"
+                }
+            }
+        });   
+    }
+    
+    formValidate('#confirm-form');
+    formValidate('#consultation-modal');
+    formValidate('#consultation-main');
+
+
 });
+
+    
