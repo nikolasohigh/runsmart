@@ -45,7 +45,6 @@ $(document).ready(function(){
         $(this).on('click', function(){
             $('#order .modal__subtitle').text($('.catalog-item__title').eq(i).text());
             $('#consultation, #order').fadeOut();
-            $('#thanks').fadeIn('slow');
             $('.overlay, #order').fadeIn('slow')
             })
       });
