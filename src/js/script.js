@@ -49,7 +49,7 @@ $(document).ready(function(){
             })
       });
       
-    $('.modal__close').on('click', function(){
+    $('.modal__close, .overlay').on('click', function(){
         $('.overlay, #consultation, #order, #thanks').fadeOut('slow')
     });
 
